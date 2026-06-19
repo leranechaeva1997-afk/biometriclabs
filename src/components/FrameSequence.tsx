@@ -160,8 +160,9 @@ export function FrameSequence() {
       style={{ height: `${blocks.length * 84}vh` }}
     >
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-paper">
-        {/* МОБ: вертикальный стек (кадр сверху, текст снизу). ДЕСКТОП: оверлей */}
-        <div className="flex h-full flex-col md:block">
+        {/* МОБ: вертикальный стек (кадр сверху, текст снизу) с отступом под шапку.
+            ДЕСКТОП: оверлей (отступ не нужен — кадр фоном). */}
+        <div className="flex h-full flex-col pt-20 md:block md:pt-0">
           {/* КАДР: моб — своя зона сверху (кадр целиком, не обрезан);
               десктоп — фон на весь экран */}
           <div className="relative w-full shrink-0 basis-[42svh] md:absolute md:inset-0 md:basis-auto">

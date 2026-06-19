@@ -160,44 +160,51 @@ export function FrameSequence() {
       style={{ height: `${blocks.length * 84}vh` }}
     >
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-paper">
-        <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+        {/* МОБ: вертикальный стек (кадр сверху, текст снизу). ДЕСКТОП: оверлей */}
+        <div className="flex h-full flex-col md:block">
+          {/* КАДР: моб — своя зона сверху (кадр целиком, не обрезан);
+              десктоп — фон на весь экран */}
+          <div className="relative w-full shrink-0 basis-[42svh] md:absolute md:inset-0 md:basis-auto">
+            <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+          </div>
 
-        {/* индикатор загрузки кадров */}
+          {/* ТЕКСТ: моб — отдельная карточка под кадром; десктоп — слева по центру */}
+          <div className="pointer-events-none flex min-h-0 flex-1 items-center md:absolute md:inset-0 md:flex-none">
+            <div className="mx-auto w-full max-w-[1180px] px-5 sm:px-6 lg:px-8">
+              <div className="relative mx-auto w-full max-w-[460px] md:mx-0">
+                {blocks.map((b, i) => (
+                  <motion.div
+                    key={i}
+                    className="glass-panel pointer-events-auto absolute inset-x-0 top-0 -translate-y-1/2 rounded-2xl p-5 sm:p-7"
+                    initial={false}
+                    animate={{ opacity: i === active ? 1 : 0 }}
+                    transition={{ duration: reduce ? 0 : 0.5, ease: EASE }}
+                    style={{ zIndex: i === active ? 2 : 1 }}
+                    aria-hidden={i === active ? undefined : true}
+                  >
+                    <span className="text-[14px] font-bold uppercase tracking-[0.14em] text-gold">
+                      {b.k}
+                    </span>
+                    <h3 className="mt-2 text-2xl font-extrabold leading-[1.12] tracking-tight text-ink sm:text-3xl">
+                      {b.title}
+                    </h3>
+                    <p className="mt-3 text-ink/75">{b.text}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* индикатор загрузки кадров — поверх всего */}
         {!ready && (
-          <div className="absolute inset-0 z-10 flex items-center justify-center bg-paper">
+          <div className="absolute inset-0 z-30 flex items-center justify-center bg-paper">
             <div className="flex flex-col items-center gap-3 text-muted">
               <div className="h-7 w-7 animate-spin rounded-full border-2 border-line border-t-gold" />
               <span className="text-sm tabular-nums">Загрузка… {pct}%</span>
             </div>
           </div>
         )}
-
-        {/* текстовые блоки слева, на стекле, единый вертикальный центр */}
-        <div className="pointer-events-none absolute inset-0 flex items-center">
-          <div className="mx-auto w-full max-w-[1180px] px-6 lg:px-8">
-            <div className="relative w-full max-w-[460px]">
-              {blocks.map((b, i) => (
-                <motion.div
-                  key={i}
-                  className="glass-panel pointer-events-auto absolute inset-x-0 top-0 -translate-y-1/2 rounded-2xl p-6 sm:p-7"
-                  initial={false}
-                  animate={{ opacity: i === active ? 1 : 0 }}
-                  transition={{ duration: reduce ? 0 : 0.5, ease: EASE }}
-                  style={{ zIndex: i === active ? 2 : 1 }}
-                  aria-hidden={i === active ? undefined : true}
-                >
-                  <span className="text-[14px] font-bold uppercase tracking-[0.14em] text-gold">
-                    {b.k}
-                  </span>
-                  <h3 className="mt-2 text-2xl font-extrabold leading-[1.12] tracking-tight text-ink sm:text-3xl">
-                    {b.title}
-                  </h3>
-                  <p className="mt-3 text-ink/75">{b.text}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

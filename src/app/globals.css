@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  /* Палитра BiometricLabs — тёплый беж + золото */
+  --color-paper:      #f3eee3;  /* основной фон (наш беж из эскизов) */
+  --color-paper-2:    #f7f3ec;  /* чуть светлее — чередующийся фон   */
+  --color-paper-3:    #e9e1d3;  /* чуть темнее — подложки            */
+  --color-ink:        #0a0a0a;  /* почти-чёрный текст                */
+  --color-line:       #e7e3da;  /* линии на беже                     */
+  --color-muted:      #8a8a8a;  /* приглушённый текст                */
+  --color-soft:       #9a948a;  /* очень мягкий (ссылка "повтор")    */
+
+  /* Золото — единственный акцент. Тёмный янтарь читается на беже. */
+  --color-gold:       #c47f00;  /* акцент: eyebrow-ярлычки, активные элементы */
+  --color-gold-bright:#f2a900;  /* яркое золото: точка в таблице, маркеры     */
+  --color-gold-soft:  #e0bd6e;  /* мягкое золото: акустические SVG-волны       */
+
+  /* Стекло — полупрозрачная дымка, сквозь неё просвечивают золотые волны */
+  --glass-bg:     rgba(250, 247, 240, 0.26);
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --glass-blur:   14px;
+
+  --font-display: var(--font-display);
+  --font-sans:    var(--font-sans);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-paper);
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+/* Стеклянная подложка — точечно: подписи видео, таблица, форма, футер */
+@utility glass-panel {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 40px -16px rgba(10, 10, 10, 0.18);
+}
+
+/* Пульсация узла-сенсора */
+@keyframes pulse-node {
+  0%, 100% { opacity: .55; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.18); }
+}
+.animate-node { animation: pulse-node 2.6s var(--ease-out-expo) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-node { animation: none; }
+}

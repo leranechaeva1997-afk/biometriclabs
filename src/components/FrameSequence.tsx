@@ -156,8 +156,9 @@ export function FrameSequence() {
     <section
       id="how"
       ref={outerRef}
-      className="relative"
-      style={{ height: `${blocks.length * 84}vh` }}
+      // моб — короче (без длинной пустоты после финального кадра);
+      // десктоп — прежняя высота (9 блоков × 84vh = 756vh)
+      className="relative h-[440vh] md:h-[756vh]"
     >
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-paper">
         {/* МОБ: вертикальный стек (кадр сверху, текст снизу) с отступом под шапку.

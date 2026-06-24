@@ -191,6 +191,9 @@ export function FrameSequence() {
                       {b.title}
                     </h3>
                     {b.text && <p className="mt-3 text-ink/75">{b.text}</p>}
+                    {b.note && (
+                      <p className="mt-2 text-[11px] leading-snug text-muted">{b.note}</p>
+                    )}
                     {b.table && (
                       <div className="mt-4">
                         <table className="w-full border-collapse text-left">

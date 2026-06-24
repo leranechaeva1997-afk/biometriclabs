@@ -190,7 +190,50 @@ export function FrameSequence() {
                     <h3 className="mt-2 text-2xl font-extrabold leading-[1.12] tracking-tight text-ink sm:text-3xl">
                       {b.title}
                     </h3>
-                    <p className="mt-3 text-ink/75">{b.text}</p>
+                    {b.text && <p className="mt-3 text-ink/75">{b.text}</p>}
+                    {b.table && (
+                      <div className="mt-4">
+                        <table className="w-full border-collapse text-left">
+                          <thead>
+                            <tr className="text-[11px] uppercase tracking-wide text-muted">
+                              <th className="pb-2 pr-2 font-medium">Прибор</th>
+                              <th className="pb-2 px-1 font-medium">Обнар.</th>
+                              <th className="pb-2 px-1 font-medium">Локал.</th>
+                              <th className="pb-2 pl-1 font-medium">Метод</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {b.table.rows.map((r) => (
+                              <tr
+                                key={r.name}
+                                className="border-t border-line/70 align-top"
+                              >
+                                <td className="py-1.5 pr-2 text-[12px] font-medium leading-snug">
+                                  <span className="flex items-start gap-1.5">
+                                    {r.us && (
+                                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-bright" />
+                                    )}
+                                    <span className={r.us ? "text-ink" : "text-ink/80"}>
+                                      {r.name}
+                                    </span>
+                                  </span>
+                                </td>
+                                <td className="py-1.5 px-1 text-[12px] tabular-nums text-ink/80">
+                                  {r.detect}
+                                </td>
+                                <td className="py-1.5 px-1 text-[12px] tabular-nums text-ink/80">
+                                  {r.loc}
+                                </td>
+                                <td className="py-1.5 pl-1 text-[11px] leading-snug text-ink/65">
+                                  {r.method}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                        <p className="mt-3 text-xs text-muted">{b.table.note}</p>
+                      </div>
+                    )}
                   </motion.div>
                 ))}
               </div>

@@ -51,16 +51,27 @@ export function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-[1180px] items-center justify-between px-6 py-3.5 lg:px-8">
-        <a href="#top" className="flex items-center gap-2" aria-label="BiometricLabs">
-          <Image
-            src={asset(LOGO.src)}
-            alt={LOGO.alt}
-            width={150}
-            height={34}
-            priority
-            className="h-7 w-auto object-contain"
-          />
-        </a>
+        {/* левая группа: ссылка «Вернуться» + разделитель + логотип */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <a
+            href="https://biometric-labs.ru/catalog2026/#catalog-products"
+            className="flex items-center gap-1 text-sm font-medium text-muted transition-colors hover:text-ink shrink-0"
+          >
+            <span aria-hidden>←</span>
+            <span className="hidden sm:inline">Вернуться</span>
+          </a>
+          <span aria-hidden className="h-4 w-px shrink-0 bg-line" />
+          <a href="#top" className="flex items-center gap-2 shrink-0" aria-label="BiometricLabs">
+            <Image
+              src={asset(LOGO.src)}
+              alt={LOGO.alt}
+              width={150}
+              height={34}
+              priority
+              className="h-7 w-auto object-contain"
+            />
+          </a>
+        </div>
 
         <nav className="hidden items-center gap-1 md:flex">
           {NAV.map((n) => (

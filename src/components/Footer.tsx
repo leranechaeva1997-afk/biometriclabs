@@ -20,6 +20,13 @@ export function Footer() {
             className="h-7 w-auto object-contain"
           />
           <div className="flex flex-col gap-1.5 text-sm text-muted sm:flex-row sm:items-center sm:gap-6">
+            <a
+              href="https://biometric-labs.ru/catalog2026/#catalog-products"
+              className="flex items-center gap-1 transition-colors hover:text-ink"
+            >
+              <span aria-hidden>←</span>
+              <span>Вернуться</span>
+            </a>
             <span>{FOOTER.copyright}</span>
             <Link
               href={FOOTER.privacyHref}
